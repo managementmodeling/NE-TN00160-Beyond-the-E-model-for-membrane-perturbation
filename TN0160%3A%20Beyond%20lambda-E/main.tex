@@ -1,0 +1,121 @@
+\documentclass[11pt]{amsart}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{a4paper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{subcaption}
+\usepackage{cite}
+\usepackage{sidecap}
+\usepackage{hyperref}
+\usepackage{xspace}
+\usepackage{tcolorbox}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+\renewcommand{\baselinestretch}{1.2}
+
+
+
+\title{Beyond the $\lambda\cdot E$ model for membrane perturbation \\ NE TN00160}
+\author{Giulio Ruffini, Ricardo Salbador, Adri\`a Gal\'an}
+\date{\today}                                           % Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+
+\section*{Abstract}
+We discuss a refinement of the traditional $\lambda \cdot E$ model. We start from realistic models of the transmembrane potential perturbation induced by an external uniform field, and provide a spherical model expansion of the average membrane potential of cell sections (soma, apical and basal dentrites and axon terminal). We analyze the variance explained by $l=1$ and $l=3$ terms for different types of neurons, and the error induced by not including $m\neq 0$ terms, which amounts to averaging the potential over all cell axial angles.
+
+%%%%%%%%%%%%%%%
+\section{Introduction: $\lambda\cdot E$ is a spherical harmonics expansion in disguise}
+
+Consider the $\lambda\cdot E$ model for the average trans-membrane perturbation ($V= V_{in}-V_{out}$) over some region (e.g., soma or apical dendrites), induced by a field, 
+\begin{equation} 
+    V(E)=\lambda\cdot E
+\end{equation}
+This has some  nice, important properties, that apply to the true solution as well.
+First, 
+$$
+V(E)=-V(-E)
+$$
+and second
+$$
+V(E)=||E||\, v(\frac{E}{||E||}) = ||E||\, v (\theta,\phi)
+$$
+Both of these follow from linearity and the effect on the field in the Laplace equation BCs, and they apply to the true membrane potential (changing direction of external field on membrane is the same as changing the sign of the potential boundary condition on the membrane).
+This implies that a spherical harmonic expansion is in order.
+
+In spherical coordinates,
+$$
+\left\{\begin{array}{l}
+E_x=||E|| \sin \theta \cos \varphi \\
+E_y=||E|| \sin \theta \sin \varphi \\
+E_z=||E|| \cos \theta
+\end{array}\right.
+$$
+or
+$$
+E =||E|| \boldsymbol{e}=||E|| (\sin \theta \cos \phi \boldsymbol{e}_{x}+\sin \theta \sin \phi \boldsymbol{e}_{y}+\cos \theta \boldsymbol{e}_{z})
+$$
+
+We can rewrite the lambda-E model as
+$$
+V(E) = \lambda\cdot E =||E||\,  (\lambda_x \sin \theta \cos \varphi+ \lambda_y \sin \theta \sin \varphi+
+\lambda_z\cos \theta)= ||E||\, \lambda \cdot \boldsymbol{e} 
+$$
+So in fact the lambda-E models first term in the spherical harmonics expansion, the dipole ($l=1$) term. The $l=0$ does not appear, since $V(0)=0$.
+
+\section{Spherical harmonics}
+%https://en.wikipedia.org/wiki/Spherical_harmonics
+The Laplace spherical harmonics $Y_{\ell}^{m}: S^{2} \rightarrow \mathbb{C}$ form a complete set of orthonormal functions and thus form an orthonormal basis of the Hilbert space of square-integrable functions $L_{\mathbb{C}}^{2}\left(S^{2}\right)$. On the unit sphere $S^{2}$, any square-integrable function $f: S^{2} \rightarrow \mathbb{C}$ can thus be expanded as a linear combination of these:
+$$
+f(\theta, \varphi)=\sum_{\ell=0}^{\infty} \sum_{m=-\ell}^{\ell} f_{\ell}^{m} Y_{\ell}^{m}(\theta, \varphi)
+$$
+
+
+A square-integrable function $f: S^{2} \rightarrow \mathbb{R}$ can also be expanded in terms of the real harmonics $Y_{\ell m}: S^{2} \rightarrow \mathbb{R}$ above as a sum
+$$
+f(\theta, \varphi)=\sum_{\ell=0}^{\infty} \sum_{m=-\ell}^{\ell} f_{\ell m} Y_{\ell m}(\theta, \varphi)
+$$
+
+with
+$$
+f_{\ell}^{m}=\int_{\Omega} f(\theta, \varphi) Y_{\ell}^{m *}(\theta, \varphi) d \Omega=\int_{0}^{2 \pi} d \varphi \int_{0}^{\pi} d \theta \sin \theta f(\theta, \varphi) Y_{\ell}^{m *}(\theta, \varphi)
+$$
+
+\section{Next term for potential expansion: $l=3$}
+% https://en.wikipedia.org/wiki/Table_of_spherical_harmonics#%7F'"`UNIQ--postMath-00000023-QINU`"'%7F_=_4
+Since $l=2$ functions are even, they violate the requirements, and 
+we  refer to the next spherical harmonic coefficients with the desired parity property, i.e., $l=3$,
+$$
+\begin{array}{l}
+Y_{3,-3}=\frac{1}{4} \sqrt{\frac{35}{2 \pi}} \cdot {\left(3 x^{2}-y^{2}\right) y} \\
+Y_{3,-2}=\frac{1}{2} \sqrt{\frac{105}{\pi}} \cdot {x y z} \\
+Y_{3,-1}=\frac{1}{4} \sqrt{\frac{21}{2 \pi}} \cdot {y\left(4 z^{2}-x^{2}-y^{2}\right)} \\
+Y_{3,0}=\frac{1}{4} \sqrt{\frac{7}{\pi}} \cdot {z\left(2 z^{2}-3 x^{2}-3 y^{2}\right)} \\
+Y_{3,1}=\frac{1}{4} \sqrt{\frac{21}{2 \pi}} \cdot {x\left(4 z^{2}-x^{2}-y^{2}\right)} \\
+Y_{3,2}=\frac{1}{4} \sqrt{\frac{105}{\pi}} \cdot {\left(x^{2}-y^{2}\right) z} \\
+Y_{3,3}=\frac{1}{4} \sqrt{\frac{35}{2 \pi}} \cdot {\left(x^{2}-3 y^{2}\right) x}
+\end{array}
+$$
+with 
+$$
+\left\{\begin{array}{l}
+x= \sin \theta \cos \varphi \\
+y= \sin \theta \sin \varphi \\
+z=\cos \theta
+\end{array}\right.
+$$
+
+% \begin{figure}[ht] \hspace{-0cm}  %\vspace{-5 cm}
+%          \centering
+%           \hspace{0cm}   \includegraphics[width=13cm,angle=0]{figures/Archetypes.png} 
+        
+%     \caption{{\bf Personalized temperature differences.} Representation of the structural connectivity matrix and the averaged J respectively. These are our 2 archetypes.
+%   \label{fig:fig1}}
+% \end{figure} 
+\end{document}  
